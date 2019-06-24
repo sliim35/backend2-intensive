@@ -1,9 +1,9 @@
 // Instruments
 import { app } from './server';
-import { getPort } from './helpers';
+import { getPort } from './utils';
 
-const port = getPort();
+const PORT = getPort();
 
-app.listen(port, () => {
-    console.log(`Server API is up on port ${port}`);
+app.listen(PORT, () => {
+    console.log(`Server API is up on port ${PORT}`);
 });

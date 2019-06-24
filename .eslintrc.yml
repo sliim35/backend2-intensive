@@ -7,8 +7,6 @@ parserOptions:
     ecmaFeatures:
         impliedStrict: true
         jsx: true
-    flowtype:
-        onlyFilesWithFlowAnnotation: false
 
 extends:
   - '@lectrum/eslint-config-core'
