@@ -5,10 +5,16 @@ import express from 'express';
 import { get, post } from './route';
 import { getByHash, putByHash, deleteByHash } from './hash/route';
 
+// Helpers
+import {limiter, validator} from '../../utils';
+
+// Validation schema
+import {createUser} from '../../schemas/createUser';
+
 export const router = express.Router();
 
-router.get('/', get);
-router.post('/', post);
+router.get('/', [ limiter(5, 60 * 1000) ], get);
+router.post('/', [ validator(createUser) ], post);
 
 router.get('/:userHash', getByHash);
 router.put('/:userHash', putByHash);
