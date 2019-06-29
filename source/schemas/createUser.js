@@ -10,6 +10,6 @@ export const createUser = {
             format: 'email',
         },
     },
-    required:             [ 'name', 'email' ],
+    required:             ['name', 'email'],
     additionalProperties: false,
 };
