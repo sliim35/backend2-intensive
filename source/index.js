@@ -11,7 +11,7 @@ const PORT = getPort();
 
 app.use(express.json({ limit: '10kb' }));
 
-app.use('/users', users);
+app.use('/api/users', users);
 
 app.listen(PORT, () => {
     console.log(`Server API is up on port ${PORT}`);
