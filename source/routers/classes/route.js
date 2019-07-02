@@ -1,6 +1,6 @@
 import dg from 'debug';
 
-const debug = dg('router:users');
+const debug = dg('router:classes');
 
 export const get = (req, res) => {
     debug(`${req.method} - ${req.originalUrl}`);

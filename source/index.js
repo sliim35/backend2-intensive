@@ -1,14 +1,16 @@
 import express from 'express';
 import winston from 'winston';
+import dg from 'debug';
 
 // Instruments
 import { app } from './server';
 import { getPort } from './utils';
 
 // Routers
-import { users } from './routers';
+import { auth, users, classes, lessons } from './routers';
 
 const PORT = getPort();
+const debug = dg('server:main');
 
 const logger = winston.createLogger({
     level:      'debug',
@@ -26,8 +28,12 @@ if (process.env.NODE_ENV === 'development') {
     });
 }
 
+// Routers
+app.use('/api/auth', auth);
 app.use('/api/users', users);
+app.use('/api/classes', classes);
+app.use('/api/lessons', lessons);
 
 app.listen(PORT, () => {
-    console.log(`Server API is up on port ${PORT}`);
+    debug(`Server API is up on port ${PORT}`);
 });
