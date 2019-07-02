@@ -1,8 +1,8 @@
 import dg from 'debug';
 
-const debug = dg('router:users');
+const debug = dg('router:classes:education');
 
-export const get = (req, res) => {
+export const enroll = (req, res) => {
     debug(`${req.method} - ${req.originalUrl}`);
 
     try {
@@ -14,7 +14,7 @@ export const get = (req, res) => {
     }
 };
 
-export const post = (req, res) => {
+export const expel = (req, res) => {
     debug(`${req.method} - ${req.originalUrl}`);
 
     try {

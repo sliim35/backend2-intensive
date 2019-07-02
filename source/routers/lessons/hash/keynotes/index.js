@@ -1,4 +1,10 @@
-export const getByHash = (req, res) => {
+import dg from 'debug';
+
+const debug = dg('router:lessons:keynotes');
+
+export const addKeynote = (req, res) => {
+    debug(`${req.method} - ${req.originalUrl}`);
+
     try {
         const data = {};
 
