@@ -1,4 +1,10 @@
+import dg from 'debug';
+
+const debug = dg('router:users');
+
 export const get = (req, res) => {
+    debug(`${req.method} - ${req.originalUrl}`);
+
     try {
         const data = [];
 
@@ -9,6 +15,8 @@ export const get = (req, res) => {
 };
 
 export const post = (req, res) => {
+    debug(`${req.method} - ${req.originalUrl}`);
+
     try {
         const data = {};
 

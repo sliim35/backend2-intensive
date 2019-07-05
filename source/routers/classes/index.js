@@ -2,22 +2,21 @@
 import express from 'express';
 
 // Instruments
-import { get, post, enroll, expell } from './route';
-import { getByHash, deleteByHash, putByHash } from './hash/route';
-
-// Helpers
-import { authorization } from '../../utils';
+import { get, post } from './route';
+import { getByHash, updateByHash, removeByHash } from './hash';
+import { enroll, expel } from './education';
+import { authenticate } from '../../utils';
 
 export const router = express.Router();
 
 router.get('/', get);
-router.post('/', [authorization], post);
+router.post('/', [ authenticate ], post);
 
-router.post('/enroll', [authorization], enroll);
-router.post('/expell', [authorization], expell);
+router.get('/:classHash', [ authenticate ], getByHash);
+router.put('/:classHash', [ authenticate ], updateByHash);
+router.delete('/:classHash', [ authenticate ], removeByHash);
 
-router.get('/:userHash', [authorization], getByHash);
-router.delete('/:userHash', [authorization], deleteByHash);
-router.put('/:userHash', [authorization], putByHash);
+router.post('/:classHash/enroll', [ authenticate ], enroll);
+router.post('/:classHash/expel', [ authenticate ], expel);
 
 export { router as classes };

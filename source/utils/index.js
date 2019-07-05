@@ -1,5 +1,5 @@
 export { getPort } from './env';
 export { limiter } from './limiter';
 export { validator } from './validator';
-export { authorization } from './authorization';
+export { authenticate } from './authenticate';
 export { logger } from './logger';
