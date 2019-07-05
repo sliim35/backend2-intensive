@@ -1,19 +1,31 @@
-const { createLogger, format, transports } = require('winston');
-const { combine, timestamp, prettyPrint } = format;
+import { format, createLogger, transports } from 'winston';
+const { combine, timestamp, label, printf, simple } = format;
+import path from 'path';
 
-export const logger = (req, res, next) => {
-    if (process.env.NODE_ENV !== 'production') {
-        const logger = createLogger({
-            level:      'debug',
-            format:     combine(timestamp(), prettyPrint()),
-            transports: [new transports.Console()],
-        });
+const logFormat = printf(({ level, message, label, timestamp }) => {
+    return `${timestamp} [${label}] ${level}: ${message}`;
+});
 
-        logger.debug({
-            payload: req.body,
-            method:  req.method,
-        });
-    }
-
-    next();
+const options = {
+    file: {
+        level:            'error',
+        filename:         path.resolve(__dirname, '../logs/errors.log'),
+        handleExceptions: true,
+        json:             true,
+        maxsize:          5242880, // 5MB
+        maxFiles:         5,
+        colorize:         false,
+        format:           combine(timestamp(), printf(({ timestamp, message }) => `${timestamp} ${message}`)),
+    },
+    console: {
+        level:            'debug',
+        handleExceptions: true,
+        json:             false,
+        colorize:         true,
+        format:           combine(label({ label: 'school API' }), timestamp(), logFormat),
+    },
 };
+
+export const logger = createLogger({
+    transports: [new transports.Console(options.console), new transports.File(options.file)],
+});

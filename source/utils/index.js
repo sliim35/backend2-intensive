@@ -3,3 +3,4 @@ export { limiter } from './limiter';
 export { validator } from './validator';
 export { authorization } from './authorization';
 export { logger } from './logger';
+export * from './errors';
