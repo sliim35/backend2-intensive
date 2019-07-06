@@ -4,6 +4,8 @@ const debug = dg('router:auth');
 
 export const login = (req, res) => {
     debug(`${req.method} - ${req.originalUrl}`);
+    const { email } = req.body;
+    req.session.email = email;
 
     try {
         res.sendStatus(204);
