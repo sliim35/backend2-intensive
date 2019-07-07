@@ -3,7 +3,7 @@ import dg from 'debug';
 
 // Instruments
 import { app } from './server';
-import { getPort, logger } from './utils';
+import { getPort, logger, passport } from './utils';
 
 // Routers
 import { auth, users, classes, lessons } from './routers';
@@ -12,7 +12,9 @@ const debug = dg('server:main');
 const PORT = getPort();
 
 app.use(express.json({ limit: '10kb' }));
-app.use(logger);
+
+// JWT
+app.use(passport.initialize());
 
 // Logger
 if (process.env.NODE_ENV === 'development') {
