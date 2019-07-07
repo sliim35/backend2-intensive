@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 import dg from 'debug';
 
 // Instruments
@@ -12,7 +13,6 @@ const debug = dg('server:main');
 const PORT = getPort();
 
 app.use(express.json({ limit: '10kb' }));
-app.use(logger);
 
 // Logger
 if (process.env.NODE_ENV === 'development') {
@@ -27,6 +27,9 @@ if (process.env.NODE_ENV === 'development') {
         next();
     });
 }
+
+// Pasport
+app.use(passport.initialize());
 
 // Routers
 app.use('/api/auth', auth);

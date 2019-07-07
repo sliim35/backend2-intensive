@@ -3,7 +3,7 @@
     "version": "0.0.9",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon",
+        "start": "PORT=3000 nodemon",
         "start:prod": "NODE_ENV='production' PORT=3000 node -r @babel/register ./source/index.js",
         "build": "NODE_ENV=production node -r @babel/register './node_modules/.bin/webpack' --config=./webpack/webpack.config.js",
         "lint:eslint": "jest --projects 'jest/jest.eslint.config.json'"
@@ -52,6 +52,8 @@
         "jsonwebtoken": "^8.5.1",
         "moment": "^2.24.0",
         "mongoose": "^5.6.2",
+        "passport": "^0.4.0",
+        "passport-github2": "^0.1.11",
         "uuid": "^3.3.2",
         "winston": "^3.2.1"
     }
