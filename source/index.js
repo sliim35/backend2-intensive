@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Routers
-app.use('/api/auth', auth);
+app.use('/api', auth);
 app.use('/api/users', users);
 app.use('/api/classes', classes);
 app.use('/api/lessons', lessons);
