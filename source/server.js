@@ -2,7 +2,7 @@
 import express from 'express';
 
 // Instruments
-import { logger, errorLogger, notFoundLogger, validationLogger } from './utils';
+import { logger, errorLogger, NotFoundError, notFoundLogger, validationLogger } from './utils';
 
 // Routers
 import { auth, users, classes, lessons } from './routers';
@@ -30,6 +30,13 @@ app.use('/api', auth);
 app.use('/api/users', users);
 app.use('/api/classes', classes);
 app.use('/api/lessons', lessons);
+
+app.use('*', (req, res, next) => {
+    const error = new NotFoundError(
+        `Can not find right route for method ${req.method} and path ${req.originalUrl}`,
+    );
+    next(error);
+});
 
 if (process.env.NODE_ENV !== 'test') {
     // eslint-disable-next-line no-unused-vars
