@@ -1,14 +1,23 @@
 // Core
 import express from 'express';
+import session from 'express-session';
 
 // Instruments
-import { logger, errorLogger, NotFoundError, notFoundLogger, validationLogger } from './utils';
+import {
+    logger,
+    errorLogger,
+    NotFoundError,
+    notFoundLogger,
+    validationLogger,
+    sessionOptions,
+} from './utils';
 
 // Routers
 import { auth, users, classes, lessons } from './routers';
 
 const app = express();
 
+app.use(session(sessionOptions));
 app.use(express.json({ limit: '10kb' }));
 
 // Logger
