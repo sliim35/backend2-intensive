@@ -3,30 +3,29 @@ import express from 'express';
 
 // Instruments
 import { get, post } from './route';
-import { getByHash, deleteByHash, putByHash } from './hash/route';
-import { addVideo, removeVideo } from './hash/videos/route';
-import { addKeynote, removeKeynote } from './hash/keynotes/route';
-import { playVideoByHash } from './hash/videos/hash/route';
-import { getKeynoteByHash } from './hash/keynotes/hash/route';
-
-// Helpers
-import { authorization } from '../../utils';
+import { getByHash, updateByHash, removeByHash } from './hash';
+import { addKeynote } from './hash/keynotes';
+import { getKeynoteByHash, removeKeynoteByHash } from './hash/keynotes/hash';
+import { getVideoByHash, removeVideoByHash } from './hash/videos/hash';
+import { addVideo } from './hash/videos';
+import { authenticate } from '../../utils';
 
 export const router = express.Router();
 
 router.get('/', get);
-router.post('/', [authorization], post);
+router.post('/', [ authenticate ], post);
 
-router.get('/:lessonHash', [authorization], getByHash);
-router.delete('/:lessonHash', [authorization], deleteByHash);
-router.put('/:lessonHash', [authorization], putByHash);
+router.get('/:lessonHash', [ authenticate ], getByHash);
+router.put('/:lessonHash', [ authenticate ], updateByHash);
+router.delete('/:lessonHash', [ authenticate ], removeByHash);
 
-router.post('/:lessonHash/videos', [authorization], addVideo);
-router.delete('/:lessonHash/videos', [authorization], removeVideo);
-router.post('/:lessonHash/keynotes', [authorization], addKeynote);
-router.delete('/:lessonHash/keynotes', [authorization], removeKeynote);
+router.post('/:lessonHash/videos', [ authenticate ], addVideo);
+router.post('/:lessonHash/keynotes', [ authenticate ], addKeynote);
 
-router.get('/:lessonHash/videos/:videoHash', [authorization], playVideoByHash);
-router.get('/:lessonHash/keynotes/:keynoteHash', [authorization], getKeynoteByHash);
+router.get('/:lessonHash/videos/:videoHash', [ authenticate ], getVideoByHash);
+router.delete('/:lessonHash/videos/:videoHash', [ authenticate ], removeVideoByHash);
+
+router.get('/:lessonHash/keynotes/:keynoteHash', [ authenticate ], getKeynoteByHash);
+router.delete('/:lessonHash/keynotes/:keynoteHash', [ authenticate ], removeKeynoteByHash);
 
 export { router as lessons };

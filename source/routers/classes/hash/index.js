@@ -1,4 +1,10 @@
+import dg from 'debug';
+
+const debug = dg('router:classes:hash');
+
 export const getByHash = (req, res) => {
+    debug(`${req.method} - ${req.originalUrl}`);
+
     try {
         const data = {};
 
@@ -8,15 +14,21 @@ export const getByHash = (req, res) => {
     }
 };
 
-export const putByHash = (req, res) => {
+export const updateByHash = (req, res) => {
+    debug(`${req.method} - ${req.originalUrl}`);
+
     try {
-        res.status(200).json({});
+        const data = {};
+
+        res.status(200).json({ data });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
 
-export const deleteByHash = (req, res) => {
+export const removeByHash = (req, res) => {
+    debug(`${req.method} - ${req.originalUrl}`);
+
     try {
         res.sendStatus(204);
     } catch (error) {
