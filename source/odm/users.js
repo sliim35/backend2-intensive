@@ -1,7 +1,8 @@
 // Core
 import mongoose from 'mongoose';
+import v4 from 'uuid/v4';
 
-const usersSchema = new mongoose.Schema({
+const schema = new mongoose.Schema({
     name: {
         first: {
             type:     String,
@@ -14,30 +15,58 @@ const usersSchema = new mongoose.Schema({
     },
     emails: [
         {
-            email:   String,
+            email: {
+                type:     String,
+                required: true,
+            },
             primary: Boolean,
         },
     ],
     phones: [
         {
-            phone:   String,
+            phone: {
+                type:     String,
+                required: true,
+            },
             primary: Boolean,
         },
     ],
     password: {
-        type:   String,
-        select: false,
+        type:     String,
+        select:   false,
+        required: true,
     },
     sex: {
-        type: String,
-        enum: [ 'm', 'f' ],
+        type:     String,
+        enum:     [ 'm', 'f' ],
+        required: true,
     },
+    roles: [
+        {
+            type:    String,
+            default: 'newbie',
+            enum:    [ 'newbie', 'student', 'teacher' ],
+        },
+    ],
     socials: {
         facebook: String,
         linkedin: String,
         github:   String,
         skype:    String,
     },
+    notes: String,
+    hash:  {
+        type:     String,
+        required: true,
+        unique:   true,
+        default:  () => v4(),
+    },
+    disabled: Boolean,
+    created:  {
+        type:    Date,
+        default: () => new Date(),
+    },
+    modified: Date,
 });
 
-export const users = mongoose.model('users', usersSchema);
+export const users = mongoose.model('users', schema);
