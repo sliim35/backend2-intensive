@@ -1,50 +1,51 @@
 // Core
 import mongoose from 'mongoose';
 
-const usersSchema = new mongoose.Schema({
-    name: {
-        first: String,
-        last:  String,
-    },
-    phones: [
-        {
-            phone:   String,
-            primary: Boolean,
+const usersSchema = new mongoose.Schema(
+    {
+        name: {
+            first: String,
+            last:  String,
         },
-    ],
-    emails: [
-        {
-            email: {
-                type:   String,
-                unique: true,
+        phones: [
+            {
+                phone:   String,
+                primary: Boolean,
             },
-            primary: Boolean,
+        ],
+        emails: [
+            {
+                email: {
+                    type:   String,
+                    unique: true,
+                },
+                primary: Boolean,
+            },
+        ],
+        password: {
+            type:   String,
+            select: false,
         },
-    ],
-    password: {
-        type:   String,
-        select: false,
+        sex: {
+            type: String,
+            enum: [ 'm', 'f' ],
+        },
+        roles:  [ String ],
+        social: {
+            facebook: String,
+            linkedin: String,
+            github:   String,
+            skype:    String,
+        },
+        notes: String,
+        hash:  {
+            type:   String,
+            unique: true,
+        },
+        disabled: Boolean,
     },
-    sex: {
-        type: String,
-        enum: [ 'm', 'f' ],
-    },
-    roles:  [ String ],
-    social: {
-        facebook: String,
-        linkedin: String,
-        github:   String,
-        skype:    String,
-    },
-    notes: String,
-    hash:  {
-        type:   String,
-        unique: true,
-    },
-    disabled: Boolean,
-    created:  Date,
-    modified: Date,
-});
+    { timestamps: { createdAt: 'created', updatedAt: 'modified' } },
+);
 
 usersSchema.index({ 'name.first': 1, 'name.last': 1, title: 'text', description: 'text' });
 
