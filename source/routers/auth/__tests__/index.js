@@ -10,7 +10,7 @@ describe('/login route', () => {
             .post('/api/login')
             .send({ name: 'john' })
             .expect(204)
-            .end((error, response) => {
+            .end((error) => {
                 if (error) {
                     throw error;
                 }

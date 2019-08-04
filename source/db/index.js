@@ -16,7 +16,7 @@ const mongooseOptions = {
     useCreateIndex:    true,
 };
 
-const connection = mongoose.connect('mongodb://localhost:27017/aprisniak', mongooseOptions);
+const connection = mongoose.connect('mongodb://18.195.151.104:27017/mdvoy', mongooseOptions);
 
 connection
     .then(() => {
