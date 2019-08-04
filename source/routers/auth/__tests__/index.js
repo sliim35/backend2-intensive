@@ -5,7 +5,7 @@ const request = require('supertest');
 const { app } = require('../../../server');
 
 describe('/login route', () => {
-    test('should handle post request', (done) => {
+    test('should handle post request', () => {
         request(app)
             .post('/api/login')
             .send({ name: 'john' })
@@ -14,8 +14,15 @@ describe('/login route', () => {
                 if (error) {
                     throw error;
                 }
-
-                done();
             });
+    });
+});
+
+describe('/logout route', () => {
+    test('should handle post request', (done) => {
+        request(app)
+            .post('/api/logout')
+            .expect(204);
+        done();
     });
 });

@@ -11,7 +11,7 @@ const path = require('path');
 // Load dotenv
 require('dotenv').config({ path: path.resolve('.env.test') });
 
-module.exports = async function() {
+module.exports = function() {
     console.log(chalk.green('λ'));
 
     global.t = 'hello';
