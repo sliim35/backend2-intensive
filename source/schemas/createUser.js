@@ -15,6 +15,9 @@ export const createUser = {
         password: {
             type: 'string',
         },
+        role: {
+            type: 'string',
+        },
         sex: {
             type: 'string',
             enum: [ 'f', 'm' ],
