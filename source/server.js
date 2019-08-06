@@ -5,6 +5,8 @@ import helmet from 'helmet';
 import cors from 'cors';
 
 // Instruments
+import { Logs } from './controllers';
+
 import {
     logger,
     errorLogger,
@@ -40,6 +42,10 @@ if (process.env.NODE_ENV === 'development') {
         if (req.method !== 'GET') {
             body = JSON.stringify(req.body, null, 2);
         }
+
+        // For test purposes
+        const logs = new Logs(req);
+        logs.create();
 
         logger.debug(`${req.method} ${body ? `\n${body}` : ''}`);
         next();

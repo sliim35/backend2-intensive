@@ -11,7 +11,7 @@ export class Users {
     }
 
     async _tranformDataCreateUser(data) {
-        const { name, email, phone, password, sex, role } = data;
+        const { name, emails, phones, password, sex, role } = data;
         const [ first, last ] = name.split(' ');
         const hashedPassword = await bcrypt.hash(password, 11);
 
@@ -21,18 +21,19 @@ export class Users {
                 last,
             },
             password: hashedPassword,
-            phones:   [{ phone }],
-            emails:   [{ email }],
+            phones,
+            emails,
             sex,
             roles:    [ role ],
             hash:     uuidv4(),
         };
 
+
         return user;
     }
 
     async create() {
-        const data = await users.create(this._tranformDataCreateUser(this.data));
+        const data = await users.create(await this._tranformDataCreateUser(this.data));
 
         return data;
     }
