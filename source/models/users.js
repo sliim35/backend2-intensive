@@ -1,7 +1,9 @@
+// Core
 import bcrypt from 'bcrypt';
 
 // Instruments
 import { users } from '../odm';
+import { validatePaginationObj } from '../utils';
 
 export class Users {
     constructor(data) {
@@ -13,6 +15,34 @@ export class Users {
         const data = await users.create(user);
 
         return data;
+    }
+
+    async getAll() {
+        const { page: oPage, size: oSize } = this.data;
+
+        const { page, size } = validatePaginationObj({
+            page: oPage,
+            size: oSize,
+        });
+        const total = await users.countDocuments();
+        const offset = (page - 1) * size;
+
+        const data = await users
+            .find({})
+            .sort('-created')
+            .skip(offset)
+            .limit(size)
+            .select('-__v -id')
+            .lean();
+
+        return {
+            data,
+            meta: {
+                total,
+                page,
+                size,
+            },
+        };
     }
 
     async _transformCreateUser(data) {
