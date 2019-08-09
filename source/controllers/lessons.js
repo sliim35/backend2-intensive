@@ -37,4 +37,40 @@ export class Lessons {
 
         return data;
     }
+
+    async addVideo() {
+        const data = await this.models.lessons.addVideo();
+
+        return data;
+    }
+
+    async addKeynote() {
+        const data = await this.models.lessons.addKeynote();
+
+        return data;
+    }
+
+    async getVideo() {
+        const data = await this.models.lessons.getVideo();
+
+        return data;
+    }
+
+    async removeVideo() {
+        const data = await this.models.lessons.removeVideo();
+
+        return data;
+    }
+
+    async getKeynote() {
+        const data = await this.models.lessons.getKeynote();
+
+        return data;
+    }
+
+    async removeKeynote() {
+        const data = await this.models.lessons.removeKeynote();
+
+        return data;
+    }
 }
