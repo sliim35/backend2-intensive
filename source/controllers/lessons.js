@@ -19,4 +19,22 @@ export class Lessons {
 
         return data;
     }
+
+    async getByHash() {
+        const data = await this.models.lessons.getByHash();
+
+        return data;
+    }
+
+    async updateByHash() {
+        const data = await this.models.lessons.updateByHash();
+
+        return data;
+    }
+
+    async removeByHash() {
+        const data = await this.models.lessons.removeByHash();
+
+        return data;
+    }
 }

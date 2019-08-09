@@ -1,6 +1,6 @@
 // Instruments
 import { lessons } from '../odm';
-import { validatePaginationObj } from '../utils';
+import { validatePaginationObj, NotFoundError } from '../utils';
 
 export class Lessons {
     constructor(data) {
@@ -39,5 +39,44 @@ export class Lessons {
                 size,
             },
         };
+    }
+
+    async getByHash() {
+        const { hash } = this.data;
+
+        const data = await lessons
+            .findOne({ hash })
+            .select('-__v -id')
+            .lean();
+
+        if (!data) {
+            throw new NotFoundError(`can not find document with hash ${hash}`);
+        }
+
+        return data;
+    }
+
+    async updateByHash() {
+        const { hash, payload } = this.data;
+
+        const data = await lessons.findOneAndUpdate({ hash }, payload);
+
+        if (!data) {
+            throw new NotFoundError(`can not find document with hash ${hash}`);
+        }
+
+        return data;
+    }
+
+    async removeByHash() {
+        const { hash } = this.data;
+
+        const data = await lessons.findOneAndDelete({ hash });
+
+        if (!data) {
+            throw new NotFoundError(`can not find document with hash ${hash}`);
+        }
+
+        return data;
     }
 }
