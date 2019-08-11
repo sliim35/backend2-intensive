@@ -1,16 +1,34 @@
+// Core
 import mongoose from 'mongoose';
+import v4 from 'uuid/v4';
 
-const lessonsSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
     {
-        title:       String,
-        description: String,
-        order:       Number,
-        hash:        {
-            type:   String,
-            unique: true,
+        hash: {
+            type:     String,
+            required: true,
+            unique:   true,
+            default:  () => v4(),
         },
-        availability: [ String ],
-        content:      {
+        title: {
+            type:     String,
+            required: true,
+        },
+        description: {
+            type:     String,
+            required: true,
+        },
+        order: {
+            type:     Number,
+            required: true,
+        },
+        availability: [
+            {
+                type: String,
+                enum: [ 'standard', 'select', 'premium' ],
+            },
+        ],
+        content: {
             videos: [
                 {
                     title: String,
@@ -27,9 +45,11 @@ const lessonsSchema = new mongoose.Schema(
             ],
         },
     },
-    { timestamps: { createdAt: 'created', updatedAt: 'modified' } },
+    { timestamp: { createdAt: 'created', updatedAt: 'modified' } },
 );
 
-lessonsSchema.index({ title: 'text', description: 'text' });
+schema.index({ order: 1 }, { name: 'order' });
 
-export const lessons = mongoose.model('lessons', lessonsSchema);
+export const lessons = mongoose.model('lessons', schema);
+
+lessons.createIndexes();

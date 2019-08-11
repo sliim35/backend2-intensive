@@ -37,4 +37,23 @@ export class Users {
 
         return data;
     }
+
+    async _transformCreateUser(data) {
+        const { name, email, phone, password, sex, role } = data;
+        const hashedPassword = await bcrypt.hash(password, 11);
+        const [ first, last ] = name.split(' ');
+        const user = {
+            name: {
+                first,
+                last,
+            },
+            sex,
+            emails:   [{ email, primary: true }],
+            roles:    [ role ],
+            phones:   [{ phone, primary: true }],
+            password: hashedPassword,
+        };
+
+        return user;
+    }
 }
