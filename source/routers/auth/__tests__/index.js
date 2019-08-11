@@ -5,12 +5,16 @@ const request = require('supertest');
 const { app } = require('../../../server');
 
 describe('/login route', () => {
-    test('should handle post request', (done) => {
+    test('should handle post request', () => {
         request(app)
             .post('/api/login')
             .send({ name: 'john' })
-            .expect(204);
-        done();
+            .expect(204)
+            .end((error) => {
+                if (error) {
+                    throw error;
+                }
+            });
     });
 });
 

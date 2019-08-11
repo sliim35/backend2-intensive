@@ -1,4 +1,8 @@
+// Core
 import dg from 'debug';
+
+// Instruments
+import { Lessons } from '../../controllers';
 
 const debug = dg('router:lessons');
 
@@ -18,7 +22,8 @@ export const post = (req, res) => {
     debug(`${req.method} - ${req.originalUrl}`);
 
     try {
-        const data = {};
+        const lesson = new Lessons(req.body);
+        const data = lesson.create();
 
         res.status(201).json({ data });
     } catch (error) {

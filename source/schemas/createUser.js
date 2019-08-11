@@ -21,5 +21,5 @@ export const createUser = {
         },
     },
     required:             [ 'name', 'email', 'phone', 'password', 'sex' ],
-    additionalProperties: false,
+    additionalProperties: true,
 };

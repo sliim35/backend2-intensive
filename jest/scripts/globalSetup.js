@@ -5,11 +5,14 @@
  **
  */
 
-import { config } from 'dotenv';
-import chalk from 'chalk';
-config();
+const chalk = require('chalk');
+const path = require('path');
 
-module.exports = async function() {
+// Load dotenv
+require('dotenv').config({ path: path.resolve('.env.test') });
+
+module.exports = function() {
     console.log(chalk.green('λ'));
+
     global.t = 'hello';
 };

@@ -1,6 +1,8 @@
 // Core
 import express from 'express';
 import session from 'express-session';
+import helmet from 'helmet';
+import cors from 'cors';
 
 // Instruments
 import {
@@ -16,6 +18,16 @@ import {
 import { auth, users, classes, lessons } from './routers';
 
 const app = express();
+
+app.use(helmet());
+app.use(
+    cors({
+        origin:               '*',
+        methods:              [ 'GET', 'PUT', 'POST', 'DELETE' ],
+        preflightContinue:    false,
+        optionsSuccessStatus: 204,
+    }),
+);
 
 app.use(session(sessionOptions));
 app.use(express.json({ limit: '10kb' }));
