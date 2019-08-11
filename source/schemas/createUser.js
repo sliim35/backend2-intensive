@@ -5,9 +5,12 @@ export const createUser = {
             type:      'string',
             minLength: 3,
         },
-        email: {
-            type:   'string',
-            format: 'email',
+        emails: {
+            type:  'array',
+            email: {
+                type:   'string',
+                format: 'email',
+            },
         },
         phone: {
             type: 'string',
@@ -20,6 +23,6 @@ export const createUser = {
             enum: [ 'f', 'm' ],
         },
     },
-    required:             [ 'name', 'email', 'phone', 'password', 'sex' ],
+    required:             [ 'name', 'emails', 'phone', 'password', 'sex' ],
     additionalProperties: true,
 };
