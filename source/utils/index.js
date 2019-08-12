@@ -5,3 +5,4 @@ export { authenticate } from './authenticate';
 export { logger, errorLogger, notFoundLogger, validationLogger } from './loggers';
 export { NotFoundError, ValidationError } from './errors';
 export { sessionOptions } from './options';
+export { validatePaginationObj } from './validatePaginationObj';

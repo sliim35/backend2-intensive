@@ -29,12 +29,12 @@
     "faker": "^4.1.0",
     "jest": "^24.8.0",
     "jest-runner-eslint": "^0.7.4",
-    "mongodb-memory-server": "^5.1.9",
+    "mongodb-memory-server": "^5.1.10",
     "nock": "^10.0.6",
     "nodemon": "^1.19.1",
     "supertest": "^4.0.2",
-    "webpack": "^4.38.0",
-    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack": "^4.39.1",
+    "webpack-bundle-analyzer": "^3.4.1",
     "webpack-cli": "^3.3.6",
     "webpack-merge": "^4.2.1",
     "webpack-node-externals": "^1.7.2"
@@ -54,7 +54,7 @@
     "helmet": "^3.20.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
-    "mongoose": "^5.6.7",
+    "mongoose": "^5.6.9",
     "uuid": "^3.3.2",
     "winston": "^3.2.1"
   }
