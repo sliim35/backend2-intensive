@@ -1,27 +1,30 @@
 // Core
 import mongoose from 'mongoose';
 
-const logsSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
     {
-        method:   String,
-        path:     String,
+        method: {
+            type:     String,
+            required: true,
+        },
+        path: {
+            type:     String,
+            required: true,
+        },
         duration: {
             start: Date,
             end:   Date,
         },
         payload: Object,
-        agent:   String,
+        agent:   {
+            type:     String,
+            required: true,
+        },
     },
     {
-        timestamps: {
-            createdAt: 'created',
-            updatedAt: false,
-        },
-        capped: {
-            size: 50 * 1024 * 1024,
-            max:  50000,
-        },
+        timestamp: { createdAt: 'created', updatedAt: false },
+        capped:    { size: 50 * 1024 * 1024, max: 50000 },
     },
 );
 
-export const logs = mongoose.model('logs', logsSchema);
+export const logs = mongoose.model('logs', schema);

@@ -3,6 +3,8 @@ import express from 'express';
 import session from 'express-session';
 import helmet from 'helmet';
 import cors from 'cors';
+import connect from 'connect-mongo';
+import mongoose from 'mongoose';
 
 // Instruments
 import { Logs } from './controllers';
@@ -20,6 +22,7 @@ import {
 import { auth, users, classes, lessons } from './routers';
 
 const app = express();
+const MongoStore = connect(session);
 
 app.use(helmet());
 app.use(
@@ -30,6 +33,10 @@ app.use(
         optionsSuccessStatus: 204,
     }),
 );
+
+if (process.env.NODE_ENV !== 'test') {
+    sessionOptions.store = new MongoStore({ mongooseConnection: mongoose.connection });
+}
 
 app.use(session(sessionOptions));
 app.use(express.json({ limit: '10kb' }));

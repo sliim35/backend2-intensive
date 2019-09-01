@@ -1,7 +1,7 @@
-// Core
 import mongoose from 'mongoose';
 import v4 from 'uuid/v4';
 
+// Document shape
 const schema = new mongoose.Schema(
     {
         hash: {
@@ -44,32 +44,27 @@ const schema = new mongoose.Schema(
             select:   false,
             required: true,
         },
+        dob: {
+            type:  Date,
+            alias: 'dateOfBirth',
+        },
         sex: {
             type:     String,
             enum:     [ 'm', 'f' ],
             required: true,
         },
-        roles: [
-            {
-                type:    String,
-                default: 'newbie',
-                enum:    [ 'newbie', 'student', 'teacher' ],
-            },
-        ],
-        socials: {
-            facebook: String,
-            linkedin: String,
-            github:   String,
-            skype:    String,
-        },
-        notes:    String,
-        disabled: Boolean,
+        disabled:    Boolean,
+        description: String,
     },
-    { timestamp: { createdAt: 'created', updatedAt: 'modified' } },
+    {
+        timestamps: {
+            createdAt: 'created',
+            updatedAt: 'modified',
+        },
+    },
 );
-schema.index({ 'name.first': 1, 'name.last': 1 }, { name: 'flName' });
-schema.index({ notes: 'text' }, { name: 'notes' });
 
-export const users = mongoose.model('users', schema);
+schema.index({ 'name.first': 1, 'name.last': 1 });
 
-users.createIndexes();
+// Collection
+export const base = mongoose.model('users', schema);
